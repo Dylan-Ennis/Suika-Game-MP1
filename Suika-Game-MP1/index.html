@@ -1,21 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Suika Game</title>
     <script src="index.js"></script>
-    <script src="styles.css"></script>
-</head>
-<body>
-    <div class="bubbles">
-    <div id="scoreboard">Score</div>
-    <div id="nextFruit">Next</div>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+        </style>
+  </head>
+  <body>
+    <div class="bubble" id="scoreboard">
+        Score
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      </div>
+      <div class="bubble" id="nextFruit">
+        Next
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
+    
     <div id="evolutionCircle"></div>
     <div id="box"></div>
-
-
-
-</body>
+  </body>
 </html>
