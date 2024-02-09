@@ -18,4 +18,13 @@
 
 - The point of the game is to get as many points as possible and reach the watermelon fruit at the end.
 
+## Frame Work
+
+- I would like to start out by making the styling of everything first if I can, so this would include the pictures I am using for fruit, the walls of my box, the scoreboard, background color, and object colors.
+
+- Once the styling is done I would like to add physics of fruits falling and combining when colliding, and possibly bouncing up when they are pushed by other fruits growing in size below them. 
+
+- After I achieve how they move I would then apply math to add points for which fruits are combined and the scoreboard would update with the total number of points achieved during the game. 
+
+- I would also then need to add a line at the top of the box to determine when the game ends by a function that recognizes when a fruit passes that line. Maybe something like an observer.
 
