@@ -13,8 +13,8 @@ body {
 }
 
 /* found online bubbles with a similar style that I like the look of */
-/* first bubble */
 
+/* first bubble */
 .bubble {
   position: absolute;
   text-align: center;
@@ -22,8 +22,8 @@ body {
   font-size: 70px;
   z-index: 0;
   line-height: 150px;
-  top: 150px;
-  left: 150px;
+  top: 17%;
+  left: 7%;
   width: 300px;
   height: 300px;
   border-radius: 50%;
@@ -34,7 +34,7 @@ body {
 .bubble:nth-child(2) {
   position: absolute;
   zoom: 0.7;
-  top: 300px;
+  top: 20%;
   left: 1600px;
   animation-delay: 1s;
 }
@@ -112,4 +112,27 @@ body {
   border-bottom: 10px solid #fff;
   filter: blur(7px);
   transform: rotate(315deg);
+}
+
+.evolutionCircle {
+  position: relative;
+  top: 300px;
+  left: 487px;
+}
+
+.evolutionCircle img {
+  display: block;
+  height: 300px;
+  width: 300px;
+}
+
+.ChartText {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -213%);
+  font-family: "Honk", system-ui;
+  padding: 10px;
+  font-size: 50px;
+  text-align: center;
 }
