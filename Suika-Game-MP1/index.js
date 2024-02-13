@@ -6,8 +6,8 @@ var Engine = Matter.Engine,
   Runner = Matter.Runner,
   Body = Matter.Body,
   Events = Matter.Events,
-  Mouse= Matter.Mouse,
-  MouseConstraint= Matter.MouseConstraint;
+  Mouse = Matter.Mouse,
+  MouseConstraint = Matter.MouseConstraint;
 
 // creating my engine
 const engine = Engine.create();
@@ -54,11 +54,9 @@ var runner = Runner.create();
 Runner.run(runner, engine);
 Render.run(render);
 
-let currentBody = null;
-let currentFruit = null;
-
-
-
+let thisBody = null;
+let thisFruit = null;
+let disableSpawn = false;
 
 // associating fruit images with different sizes to act somewhat like a switch case
 const Fruits = [
@@ -139,8 +137,8 @@ function spawnFruit() {
     restitution: 0.3,
   });
 
-  currentBody = body;
-  currentFruit = fruit;
+  thisBody = body;
+  thisFruit = fruit;
 
   // add bodies to the world
   World.add(world, [body]);
@@ -148,24 +146,36 @@ function spawnFruit() {
 
 // allowing the controlling of where to drop the fruit
 window.onkeydown = (event) => {
+  // turns off the ability to activate an event and in this case it is spawning fruit
+  if (disableSpawn) {
+    return;
+  }
   // chaning keyCode to just Code would allow inputs like "keyA" instead of "37"
   switch (event.keyCode) {
     case 37:
-      Body.setPosition(currentBody, 
-        {x: currentBody.position.x-10,
-        y: currentBody.position.y,
-        });
-        break;
-        case 39:
-          Body.setPosition(currentBody, 
-            {x: currentBody.position.x+10,
-            y: currentBody.position.y,
-            });
-          break;
-          case 40:
-            currentBody.isSleeping = false;
-            break;
+      Body.setPosition(thisBody, {
+        x: thisBody.position.x - 10,
+        y: thisBody.position.y,
+      });
+      break;
+    case 39:
+      Body.setPosition(thisBody, {
+        x: thisBody.position.x + 10,
+        y: thisBody.position.y,
+      });
+      break;
+    // drops fruit and spawns another one
+    case 40:
+      thisBody.isSleeping = false;
+      // creates a delay between when fruit can be dropped in case someone accidentally holds down the spawn key
+disableSpawn = true;
+      setTimeout(() => {
+        spawnFruit();
+        disableSpawn = false;
+      }, 500);
+
+      break;
   }
-}
+};
 
 spawnFruit();
