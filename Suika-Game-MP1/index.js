@@ -124,6 +124,7 @@ function spawnFruit() {
         texture: `${fruit.name}`,
       },
     },
+    // defines the elasticity of the body and bounces depending on "value"% of its kinetic energy. Possibly depermined by the radius
     restitution: 1,
   });
 
