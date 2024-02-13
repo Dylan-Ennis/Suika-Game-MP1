@@ -4,15 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Suika Game</title>
-    <script src="index.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Honk&display=swap");
     </style>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
   </head>
   <body>
     <div class="bubble" id="scoreboard">
       <span>Score</span>
+      <span></span>
       <span></span>
       <span></span>
       <span></span>
@@ -28,9 +29,10 @@
       <span></span>
     </div>
     <div class="evolutionCircle">
-      <img src="./Fruits/SuikaFruitChart.png" alt="fruit Chart"/> 
-    <div class="ChartText">Fruit Evolution</div>
-  </div>
+      <img src="./Fruits/SuikaFruitChart.png" alt="fruit Chart" />
+      <div class="ChartText">Fruit Evolution</div>
+    </div>
     <div id="box"></div>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

@@ -9,7 +9,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: tan;
+  background: #edb65c;
+  /* background: #f7f4cb; */
 }
 
 /* found online bubbles with a similar style that I like the look of */
@@ -35,7 +36,7 @@ body {
   position: absolute;
   zoom: 0.7;
   top: 20%;
-  left: 70%;
+  left: 80%;
   animation-delay: 1s;
 }
 /* movement of bubble */
@@ -113,11 +114,12 @@ body {
   filter: blur(7px);
   transform: rotate(315deg);
 }
+
 /* Fruit evolution chart placement and design */
 .evolutionCircle {
   position: relative;
   top: 200px;
-  left: 24%;
+  left: 55%;
 }
 
 .evolutionCircle img {
