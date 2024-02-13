@@ -3,7 +3,11 @@ var Engine = Matter.Engine,
   Render = Matter.Render,
   World = Matter.World,
   Bodies = Matter.Bodies,
-  Runner = Matter.Runner;
+  Runner = Matter.Runner,
+  Body = Matter.Body,
+  Events = Matter.Events,
+  Mouse= Matter.Mouse,
+  MouseConstraint= Matter.MouseConstraint;
 
 // creating my engine
 const engine = Engine.create();
@@ -49,6 +53,12 @@ World.add(world, [rightWall, leftwall, floor, endGame]);
 var runner = Runner.create();
 Runner.run(runner, engine);
 Render.run(render);
+
+let currentBody = null;
+let currentFruit = null;
+
+
+
 
 // associating fruit images with different sizes to act somewhat like a switch case
 const Fruits = [
@@ -112,12 +122,13 @@ const Fruits = [
 ];
 
 function spawnFruit() {
-  const index = 10;
+  const index = Math.floor(Math.random() * 5);
   const fruit = Fruits[index];
 
   // used to create the circle body depending on image and radius of the fruit
   const body = Bodies.circle(300, 50, fruit.radius, {
-    index: index,
+    // makes sure that the fruit don't fall right away. They need to be woken up by something.
+    isSleeping: true,
     // allows circle to be any fruit image depending on my "Fruits" section
     render: {
       sprite: {
@@ -125,11 +136,36 @@ function spawnFruit() {
       },
     },
     // defines the elasticity of the body and bounces depending on "value"% of its kinetic energy. Possibly depermined by the radius
-    restitution: 1,
+    restitution: 0.3,
   });
+
+  currentBody = body;
+  currentFruit = fruit;
 
   // add bodies to the world
   World.add(world, [body]);
+}
+
+// allowing the controlling of where to drop the fruit
+window.onkeydown = (event) => {
+  // chaning keyCode to just Code would allow inputs like "keyA" instead of "37"
+  switch (event.keyCode) {
+    case 37:
+      Body.setPosition(currentBody, 
+        {x: currentBody.position.x-10,
+        y: currentBody.position.y,
+        });
+        break;
+        case 39:
+          Body.setPosition(currentBody, 
+            {x: currentBody.position.x+10,
+            y: currentBody.position.y,
+            });
+          break;
+          case 40:
+            currentBody.isSleeping = false;
+            break;
+  }
 }
 
 spawnFruit();
