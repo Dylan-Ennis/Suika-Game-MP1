@@ -7,7 +7,8 @@ var Engine = Matter.Engine,
   Body = Matter.Body,
   Events = Matter.Events,
   Mouse = Matter.Mouse,
-  MouseConstraint = Matter.MouseConstraint;
+  MouseConstraint = Matter.MouseConstraint,
+  collision = Matter.Collision;
 
 // creating my engine
 const engine = Engine.create();
@@ -41,6 +42,7 @@ const floor = Bodies.rectangle(310, 820, 620, 60, {
   render: { fillStyle: "orange" },
 });
 const endGame = Bodies.rectangle(310, 150, 620, 2, {
+  name: "endGame",
   isStatic: true,
   // sensor allows for passthrough
   isSensor: true,
@@ -54,9 +56,11 @@ var runner = Runner.create();
 Runner.run(runner, engine);
 Render.run(render);
 
+// for manipulating placement
 let thisBody = null;
 let thisFruit = null;
-let disableSpawn = false;
+// to make moving the fruit around faster
+let interval = null;
 
 // associating fruit images with different sizes to act somewhat like a switch case
 const Fruits = [
@@ -99,7 +103,7 @@ const Fruits = [
   },
   {
     id: 7,
-    name: "./Fruits/SuikaPeach",
+    name: "./Fruits/SuikaPeach.png",
     radius: 156 / 2,
   },
   {
@@ -125,6 +129,8 @@ function spawnFruit() {
 
   // used to create the circle body depending on image and radius of the fruit
   const body = Bodies.circle(300, 50, fruit.radius, {
+    // according to stackOverflow this is what I was missing when trying to collide with only bodies of the same index
+    index: index,
     // makes sure that the fruit don't fall right away. They need to be woken up by something.
     isSleeping: true,
     // allows circle to be any fruit image depending on my "Fruits" section
@@ -144,6 +150,9 @@ function spawnFruit() {
   World.add(world, [body]);
 }
 
+// for manipulating a timeout
+let disableSpawn = false;
+
 // allowing the controlling of where to drop the fruit
 window.onkeydown = (event) => {
   // turns off the ability to activate an event and in this case it is spawning fruit
@@ -153,22 +162,35 @@ window.onkeydown = (event) => {
   // chaning keyCode to just Code would allow inputs like "keyA" instead of "37"
   switch (event.keyCode) {
     case 37:
-      Body.setPosition(thisBody, {
-        x: thisBody.position.x - 10,
-        y: thisBody.position.y,
-      });
+      // when the button is pressed set interval goes off so that the function will be executed every 15 milliseconds. I had it lower before but it felt too fast and hard to control the placement of the fruit
+      if (interval) return;
+      interval = setInterval(() => {
+        // to ensure that you cant drop fruit outside of the walls. 30 because this is the width of the left wall
+        if (thisBody.position.x - thisFruit.radius > 30)
+          Body.setPosition(thisBody, {
+            x: thisBody.position.x - 10,
+            y: thisBody.position.y,
+          });
+          // 15 is the milliseconds between each input of the function if the button is held down
+      }, 15);
       break;
     case 39:
-      Body.setPosition(thisBody, {
-        x: thisBody.position.x + 10,
-        y: thisBody.position.y,
-      });
+      // when the button is pressed set interval goes off so that the function will be executed every 15 milliseconds. I had it lower before but it felt too fast and hard to control the placement of the fruit
+      if (interval) return;
+      interval = setInterval(() => {
+        // ensure you cant drop fruit outside of the walls but isntead of 30 it is 590 because that is the total length - width of the wall since it the right wall and the position in x pixels would be high towards the rightside.
+        if (thisBody.position.x + thisFruit.radius < 590)
+          Body.setPosition(thisBody, {
+            x: thisBody.position.x + 10,
+            y: thisBody.position.y,
+          });
+      }, 15);
       break;
     // drops fruit and spawns another one
     case 40:
       thisBody.isSleeping = false;
       // creates a delay between when fruit can be dropped in case someone accidentally holds down the spawn key
-disableSpawn = true;
+      disableSpawn = true;
       setTimeout(() => {
         spawnFruit();
         disableSpawn = false;
@@ -177,5 +199,54 @@ disableSpawn = true;
       break;
   }
 };
+
+window.onkeyup = (event) => {
+  switch (event.keyCode) {
+    case 37:
+    case 39:
+      clearInterval(interval);
+      interval = null;
+  }
+};
+
+// making collision effect that allows the game to be played
+Events.on(engine, "collisionStart", (event) => {
+  event.pairs.forEach((collision) => {
+    // only pair with fruits of the same kind
+    if (collision.bodyA.index === collision.bodyB.index) {
+      // reads the fruit index that is colliding
+      const index = collision.bodyA.index;
+      // stops at watermelon and doesnt repeat the cycle again
+      if (index === Fruits.length - 1) {
+        return;
+      }
+      World.remove(world, [collision.bodyA, collision.bodyB]);
+
+      // allows the function to know which fruit image comes next
+      const nextFruit = Fruits[index + 1];
+      // creates the new circle size based on which fruit is spawned from the collision
+      const newBody = Bodies.circle(
+        collision.collision.supports[0].x,
+        collision.collision.supports[0].y,
+        nextFruit.radius,
+        {
+          // because nextfruit is defined as the next fruit in the index, the sprite changes to the next image along with the radius
+          render: { sprite: { texture: `${nextFruit.name}` } },
+          // the new fruit now identifies as the next item in the array
+          index: index + 1,
+        }
+      );
+      // add the new fruit to the world because the two fruits from the collision were removed already
+      World.add(world, newBody);
+    }
+
+    if (
+      !disableSpawn &&
+      (collision.bodyA.name === "endGame")
+    ) {
+      alert("Bad Luck!");
+    }
+  });
+});
 
 spawnFruit();
