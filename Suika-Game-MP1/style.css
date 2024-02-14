@@ -114,7 +114,15 @@ body {
   filter: blur(7px);
   transform: rotate(315deg);
 }
-
+#Print {
+  position: absolute;
+top: 35%;
+left: 37%;
+  font-size: 70px;
+  font-family: "Protest Riot", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 /* Fruit evolution chart placement and design */
 .evolutionCircle {
   position: relative;
@@ -138,3 +146,4 @@ body {
   font-size: 50px;
   text-align: center;
 }
+

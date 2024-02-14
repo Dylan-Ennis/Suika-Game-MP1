@@ -70,56 +70,68 @@ const Fruits = [
     id: 0,
     name: "./Fruits/SuikaCherry.png",
     radius: 33 / 2,
+    // unattainable bc nothing combines to become a cherry
+    points: 1,
   },
   {
     id: 1,
     name: "./Fruits/SuikaStrawberry.png",
     radius: 48 / 2,
+    points: 3,
   },
   {
     id: 2,
     name: "./Fruits/SuikaGrape.png",
     radius: 61 / 2,
+    points: 6,
   },
   {
     id: 3,
     name: "./Fruits/SuikaDekopon.png",
     radius: 69 / 2,
+    points: 10,
   },
   {
     id: 4,
     name: "./Fruits/SuikaOrange.png",
     radius: 89 / 2,
+    points: 15,
   },
   {
     id: 5,
     name: "./Fruits/SuikaApple.png",
     radius: 114 / 2,
+    points: 21,
   },
   {
     id: 6,
     name: "./Fruits/SuikaPear.png",
     radius: 129 / 2,
+    points: 28,
   },
   {
     id: 7,
     name: "./Fruits/SuikaPeach.png",
     radius: 156 / 2,
+    points: 36,
   },
   {
     id: 8,
     name: "./Fruits/SuikaPineapple.png",
     radius: 177 / 2,
+    points: 45,
   },
   {
     id: 9,
     name: "./Fruits/SuikaMelon.png",
     radius: 220 / 2,
+    points: 55,
   },
   {
     id: 10,
     name: "./Fruits/SuikaWatermelon.png",
     radius: 259 / 2,
+    points: 66,
   },
 ];
 
@@ -171,7 +183,7 @@ window.onkeydown = (event) => {
             x: thisBody.position.x - 10,
             y: thisBody.position.y,
           });
-          // 15 is the milliseconds between each input of the function if the button is held down
+        // 15 is the milliseconds between each input of the function if the button is held down
       }, 15);
       break;
     case 39:
@@ -200,6 +212,7 @@ window.onkeydown = (event) => {
   }
 };
 
+// stops the fruit from sliding around on the page
 window.onkeyup = (event) => {
   switch (event.keyCode) {
     case 37:
@@ -208,7 +221,7 @@ window.onkeyup = (event) => {
       interval = null;
   }
 };
-
+      var score = 0;
 // making collision effect that allows the game to be played
 Events.on(engine, "collisionStart", (event) => {
   event.pairs.forEach((collision) => {
@@ -236,13 +249,23 @@ Events.on(engine, "collisionStart", (event) => {
           index: index + 1,
         }
       );
+
+      // this part displays the score in the scoreboard bubble
+      const scoreboard = document.getElementById("Print");
+
+      // calculates score
+      function updateScore() {
+        score += nextFruit.points;
+        scoreboard.innerHTML = score;
+      }
+      updateScore();
       // add the new fruit to the world because the two fruits from the collision were removed already
       World.add(world, newBody);
     }
-
+    // this collision ends the game because there are too many fruit in the container so they would collide with the top bar which is "endGame"
     if (
       !disableSpawn &&
-      (collision.bodyA.name === "endGame")
+      (collision.bodyA.name === "endGame" || collision.bodyB.name === "endGame")
     ) {
       alert("Bad Luck!");
     }
