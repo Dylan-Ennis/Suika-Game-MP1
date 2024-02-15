@@ -221,6 +221,12 @@ window.onkeyup = (event) => {
       interval = null;
   }
 };
+
+
+
+// makes a pop sound
+let beat = new Audio('./Audio/happy-pop-2-185287.mp3');
+// starts score at 0
       var score = 0;
 // making collision effect that allows the game to be played
 Events.on(engine, "collisionStart", (event) => {
@@ -233,6 +239,8 @@ Events.on(engine, "collisionStart", (event) => {
       if (index === Fruits.length - 1) {
         return;
       }
+      // makes a pop play whenever fruits combine
+      beat.play()
       World.remove(world, [collision.bodyA, collision.bodyB]);
 
       // allows the function to know which fruit image comes next
@@ -263,13 +271,16 @@ Events.on(engine, "collisionStart", (event) => {
       World.add(world, newBody);
     }
     // this collision ends the game because there are too many fruit in the container so they would collide with the top bar which is "endGame"
-    if (
-      !disableSpawn &&
-      (collision.bodyA.name === "endGame" || collision.bodyB.name === "endGame")
-    ) {
-      alert("Bad Luck!");
+    if (!disableSpawn && (collision.bodyA.name === "endGame" || collision.bodyB.name === "endGame")) {
+      disableSpawn = true;
+      // Display game over message
+
+
     }
   });
 });
+
+
+document.body.appendChild(gameOverMessage);
 
 spawnFruit();

@@ -3,17 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>Suika Game</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Honk&display=swap");
     </style>
-    
+
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap')
+      @import url("https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap");
     </style>
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
   </head>
   <body>
     <div class="bubble">
@@ -26,23 +28,49 @@
       <span></span>
       <p id="Print"></p>
     </div>
-    
     <div class="bubble" id="nextFruit">
-      <span>Next</span>
+      <span>Mute</span>
       <span></span>
       <span></span>
       <span></span>
       <span></span>
       <span></span>
+          <!-- background music -->
+    <div id="music">
+      <audio id="mainAudio" autoplay loop>
+        <source src="Audio/Kalimba.mp3" type="audio/mp3"/>
+      </audio>
+      <!-- mutes audio -->
+      <!-- also includes a mute button from bootstrap -->
+      <a href="javascript:void(0);" onclick="toggleMute()"><svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="pink" class="bi bi-volume-mute" viewBox="0 0 16 16">
+        <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06M6 5.04 4.312 6.39A.5.5 0 0 1 4 6.5H2v3h2a.5.5 0 0 1 .312.11L6 10.96zm7.854.606a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0"/>
+      </svg></i></a>
+    </div>
     </div>
     <div class="evolutionCircle">
       <img src="./Fruits/SuikaFruitChart.png" alt="fruit Chart" />
       <div class="ChartText">Fruit Evolution</div>
     </div>
     <div id="box"></div>
-    <div>
-      
-      </div>
+    <div></div>
+    
+
+    <script>
+      // Get the audio element
+      var audio = document.getElementById("mainAudio");
+      // Set the volume (0.1 means 10% volume)
+      audio.volume = 0.1;
+    
+      // Define the toggleMute function
+      function toggleMute() {
+        if (audio.muted) {
+          audio.muted = false;
+        } else {
+          audio.muted = true;
+        }
+      }
+    </script>
+<button type="button" class="btn btn-dark" onClick="window.location.href=window.location.href">Play Again</button>
     <script type="module" src="index.js"></script>
   </body>
 </html>
