@@ -280,7 +280,20 @@ Events.on(engine, "collisionStart", (event) => {
   });
 });
 
-
+function GG() {
+const gameOverMessage = document.createElement('div');
+gameOverMessage.innerHTML = 'Game Over!';
+gameOverMessage.style.position = 'absolute';
+gameOverMessage.style.top = '30%';
+gameOverMessage.style.left = '50%';
+gameOverMessage.style.transform = 'translate(-50%, -50%)';
+gameOverMessage.style.zoom = 10;
+gameOverMessage.style.background = "red"
+gameOverMessage.style.border = "black"
+gameOverMessage.style.fontFamily = "Protest Riot"
 document.body.appendChild(gameOverMessage);
+}
+
+GG();
 
 spawnFruit();

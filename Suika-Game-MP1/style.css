@@ -153,3 +153,9 @@ left: 33%;
   left: 30%;
   z-index: 4;
 }
+
+#refreshbtn {
+  position: absolute;
+  top: 50%;
+  zoom: 3;
+}
