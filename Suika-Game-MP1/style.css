@@ -9,10 +9,27 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #edb65c;
   /* background: #f7f4cb; */
 }
 
+body {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(45deg, #cc3446,#f79f42,#f844cb);
+  background-size: 300% 300%;
+  animation: color 12s ease-in-out infinite;
+}
+@keyframes color {
+  0% {
+    background-position: 0 50% ;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
 /* found online bubbles with a similar style that I like the look of */
 
 /* first bubble */
@@ -116,8 +133,8 @@ body {
 }
 #Print {
   position: absolute;
-top: 35%;
-left: 33%;
+  top: 35%;
+  left: 33%;
   font-size: 70px;
   font-family: "Protest Riot", sans-serif;
   font-weight: 400;
@@ -127,7 +144,7 @@ left: 33%;
 .evolutionCircle {
   position: relative;
   top: 200px;
-  left: 55%;
+  left: 53%;
 }
 
 .evolutionCircle img {
@@ -138,24 +155,36 @@ left: 33%;
 
 .ChartText {
   position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -213%);
+  top: -23%;
+  left: -15%;
+  /* transform: translate(-50%, -213%); */
   font-family: "Honk", system-ui;
   padding: 10px;
   font-size: 50px;
+  width: 400px;
   text-align: center;
 }
 
 #music {
   position: absolute;
   top: 35%;
-  left: 30%;
+  left: 19%;
   z-index: 4;
 }
+
+
 
 #refreshbtn {
   position: absolute;
   top: 50%;
   zoom: 3;
+}
+
+.directions {
+  position: absolute;
+  width: 400px;
+  height: 0px;
+  top: 60%;
+  left: 10%;
+  font-family: "Protest Riot", sans-serif;
 }

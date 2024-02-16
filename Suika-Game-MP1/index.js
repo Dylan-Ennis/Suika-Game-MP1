@@ -19,7 +19,7 @@ const render = Render.create({
   options: {
     // without wireframes false I could load the color of box?
     wireframes: false,
-    background: "tan",
+    background: "#c27802",
     width: 620,
     height: 850,
   },
@@ -31,22 +31,23 @@ const world = engine.world;
 // is static keeps everything in place
 const rightWall = Bodies.rectangle(605, 395, 30, 790, {
   isStatic: true,
-  render: { fillStyle: "orange" },
+  render: { fillStyle: "#f79900 " },
 });
 const leftwall = Bodies.rectangle(15, 395, 30, 790, {
   isStatic: true,
-  render: { fillStyle: "orange" },
+  render: { fillStyle: "#f79900 " },
 });
 const floor = Bodies.rectangle(310, 820, 620, 60, {
   isStatic: true,
-  render: { fillStyle: "orange" },
+  render: { fillStyle: "#f79900 " },
+
 });
 const endGame = Bodies.rectangle(310, 150, 620, 2, {
   name: "endGame",
   isStatic: true,
   // sensor allows for passthrough
   isSensor: true,
-  render: { fillStyle: "pink" },
+  render: { fillStyle: "red" },
 });
 // adding created walls to the world
 World.add(world, [rightWall, leftwall, floor, endGame]);
@@ -222,12 +223,13 @@ window.onkeyup = (event) => {
   }
 };
 
-
+// hides the refresh button
+refreshbtn.style.display = "none";
 
 // makes a pop sound
-let beat = new Audio('./Audio/happy-pop-2-185287.mp3');
+let beat = new Audio("./Audio/happy-pop-2-185287.mp3");
 // starts score at 0
-      var score = 0;
+var score = 0;
 // making collision effect that allows the game to be played
 Events.on(engine, "collisionStart", (event) => {
   event.pairs.forEach((collision) => {
@@ -240,7 +242,7 @@ Events.on(engine, "collisionStart", (event) => {
         return;
       }
       // makes a pop play whenever fruits combine
-      beat.play()
+      beat.play();
       World.remove(world, [collision.bodyA, collision.bodyB]);
 
       // allows the function to know which fruit image comes next
@@ -271,29 +273,33 @@ Events.on(engine, "collisionStart", (event) => {
       World.add(world, newBody);
     }
     // this collision ends the game because there are too many fruit in the container so they would collide with the top bar which is "endGame"
-    if (!disableSpawn && (collision.bodyA.name === "endGame" || collision.bodyB.name === "endGame")) {
+    if (
+      !disableSpawn &&
+      (collision.bodyA.name === "endGame" || collision.bodyB.name === "endGame")
+    ) {
       disableSpawn = true;
       // Display game over message
-
-
+      GG();
+      refreshbtn.style.display = "initial";
     }
   });
 });
 
+// fucntion for making the game over screen pop up
 function GG() {
-const gameOverMessage = document.createElement('div');
-gameOverMessage.innerHTML = 'Game Over!';
-gameOverMessage.style.position = 'absolute';
-gameOverMessage.style.top = '30%';
-gameOverMessage.style.left = '50%';
-gameOverMessage.style.transform = 'translate(-50%, -50%)';
-gameOverMessage.style.zoom = 10;
-gameOverMessage.style.background = "red"
-gameOverMessage.style.border = "black"
-gameOverMessage.style.fontFamily = "Protest Riot"
-document.body.appendChild(gameOverMessage);
+  const gameOverMessage = document.createElement("div");
+  gameOverMessage.innerHTML = "~Game Over!~";
+  gameOverMessage.style.position = "absolute";
+  gameOverMessage.style.top = "30%";
+  gameOverMessage.style.left = "50%";
+  gameOverMessage.style.transform = "translate(-50%, -50%)";
+  gameOverMessage.style.zoom = 10;
+  gameOverMessage.style.background = "red";
+  gameOverMessage.style.border = "black";
+  gameOverMessage.style.fontFamily = "Protest Riot";
+  gameOverMessage.style.boxShadow = "7px 5px 5px black";
+  gameOverMessage.style.borderRadius = "10%";
+  document.body.appendChild(gameOverMessage);
 }
-
-GG();
 
 spawnFruit();
