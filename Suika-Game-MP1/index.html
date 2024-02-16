@@ -44,15 +44,14 @@
            <a href="javascript:void(0);" onclick="playMain()"> <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="pink" class="bi bi-play" viewBox="0 0 16 16">
       <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/>
     </svg></a>
-
-    <a href="javascript:void(0);" onclick="pauseMain()"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="pink" class="bi bi-pause-circle" viewBox="0 0 16 16">
+    <a href="javascript:void(0);" onclick="pauseMain()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="pink" class="bi bi-pause-circle" viewBox="0 0 16 16">
       <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
       <path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0z"/>
       </svg></a>  
-      <a href="javascript:void(0);" onclick="toggleMute()"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="pink" class="bi bi-volume-mute" viewBox="0 0 16 16">
+      <a href="javascript:void(0);" onclick="toggleMute()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="pink" class="bi bi-volume-mute" viewBox="0 0 16 16">
         <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06M6 5.04 4.312 6.39A.5.5 0 0 1 4 6.5H2v3h2a.5.5 0 0 1 .312.11L6 10.96zm7.854.606a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0"/>
-
-
     </svg></a>
     </div>
     </div>
@@ -66,21 +65,20 @@
       <span></span>
       <p id="Print"></p>
     </div>
-
     <div class="evolutionCircle">
       <img src="./Fruits/SuikaFruitChart.png" alt="fruit Chart" />
-      <div class="ChartText">Fruit Evolution</div>
+      <div 
+      class="ChartText">Fruit Evolution
     </div>
-    <div id="box"></div>
-
+    </div>
     <div>
     <script>
       // Get the audio element
       var audio = document.getElementById("mainAudio");
-      // Set the volume (0.1 means 10% volume)
-      audio.volume = 0.1;
+      // Set the volume (0.04 means 4% volume)
+      audio.volume = 0.04;
     
-      // Define the toggleMute function
+      // Function for muting background music
       function toggleMute() {
         if (audio.muted) {
           audio.muted = false;
@@ -88,18 +86,16 @@
           audio.muted = true;
         }
       }
-
+      // playing background music if it is paused
       function playMain() {
 audio.play();
       }
+      // pausing background music if it is playing
       function pauseMain() {
 audio.pause();
       }
     </script>
     </div>
-
-
-
 <button id="refreshbtn" type="button" class="btn btn-dark" onClick="window.location.href=window.location.href">Play Again</button>
     <script type="module" src="index.js"></script> 
   </body>
